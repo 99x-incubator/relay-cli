@@ -1,0 +1,24 @@
+{
+  "name": "relay-cli",
+  "version": "0.1.0",
+  "description": "CLI for Relay.js",
+  "main": "bin/init.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/99xt/relay-cli.git"
+  },
+  "keywords": [
+    "CLI",
+    "Relay.js",
+    "DevTool"
+  ],
+  "author": "99XT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/99xt/relay-cli/issues"
+  },
+  "homepage": "https://github.com/99xt/relay-cli#readme"
+}
