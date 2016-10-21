@@ -1,3 +1,3 @@
-import { Generate } from '../lib/generate';
+#!/usr/bin/env/node
 
-let gen = new Generate();
+console.log('hello !');
