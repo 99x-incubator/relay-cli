@@ -19,8 +19,7 @@ program
 program
   .command('init [projectname]')
   .alias('i')
-  .description('initialize React project')
-  .option("-l, --eslint", "eslint required or not ?")
+  .description('initialize Relay.js project')
   .action(function (projectname, options) {
     if (projectname === undefined) {
       console.log('provide a project name');
