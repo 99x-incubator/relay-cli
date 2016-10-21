@@ -4,6 +4,7 @@
   "description": "CLI for Relay.js",
   "main": "bin/init.js",
   "scripts": {
+    "compile": "babel lib -d build",
     "test": "mocha"
   },
   "repository": {
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/99xt/relay-cli/issues"
   },
-  "homepage": "https://github.com/99xt/relay-cli#readme"
+  "homepage": "https://github.com/99xt/relay-cli#readme",
+  "devDependencies": {
+    "babel-cli": "^6.16.0"
+  }
 }
