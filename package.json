@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "CLI for Relay.js",
   "main": "bin/init.js",
+  "bin": {
+    "relay": "bin/init"
+  },
   "scripts": {
     "compile": "babel bin -d build",
     "clean": "rm -rf build",
