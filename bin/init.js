@@ -3,6 +3,7 @@
 const program = require('commander');
 const inquirer = require('inquirer');
 const initApp = require('../lib/initialize');
+const routeApp = require('../lib/routes');
 const packageVersion = require('../package.json').version;
 const ora = require('ora');
 
@@ -10,7 +11,7 @@ const ora = require('ora');
  * set commander version
  */
 program
-	.version(packageVersion);
+  .version(packageVersion);
 
 /**
  * initialize project
@@ -20,27 +21,26 @@ program
   .alias('i')
   .description('initialize React project')
   .option("-l, --eslint", "eslint required or not ?")
-  .action(function(projectname, options) {
+  .action(function (projectname, options) {
     if (projectname === undefined) {
       console.log('provide a project name');
       return;
     }
-    else
-		{
-			init = new initApp();
-			const spinner = ora('creating directory structure').start();
-			init.init(projectname, function(response) {
-				if(response) {
-					spinner.text = 'application created successfully';
-					spinner.succeed();
-					console.log(`\t$ cd ${projectname}\n \t$ npm install \n \tHappy hacking ♥`);
-				} else {
-					spinner.text = 'something went wrong !';
-					spinner.fail();
-				}
-			});
-		}
-  }).on('--help', function() {
+    else {
+      init = new initApp();
+      const spinner = ora('creating directory structure').start();
+      init.init(projectname, function (response) {
+        if (response) {
+          spinner.text = 'application created successfully';
+          spinner.succeed();
+          console.log(`\t$ cd ${projectname}\n \t$ npm install \n \tHappy hacking ♥`);
+        } else {
+          spinner.text = 'something went wrong !';
+          spinner.fail();
+        }
+      });
+    }
+  }).on('--help', function () {
     console.log('  Examples:');
     console.log();
     console.log('    $ react-cli init awesomereact');
@@ -51,5 +51,25 @@ program
 /**
  * parse commander object
  */
+
+
+/**
+ * command generating route file
+ */
+program
+  .command('route [routeName]')
+  .alias('r')
+  .description('generate a route file')
+  .action(function (routeName) {
+    if (routeName === undefined) {
+      console.log('Provide a route name');
+      return;
+    }
+    else {
+      const route = new routeApp();
+      console.log("command" + routeName);
+      route.createRouteFile(routeName);
+    }
+  });
 
 program.parse(process.argv);
