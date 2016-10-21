@@ -5,6 +5,7 @@ const inquirer = require('inquirer');
 const initApp = require('../lib/initialize');
 const packageVersion = require('../package.json').version;
 const ora = require('ora');
+const containerApp = require('../lib/container');
 
 /**
  * set commander version
@@ -48,8 +49,34 @@ program
     console.log();
   });
 
+  program
+  .command('generate container [containerName]')
+  .alias('g')
+  .description('create relay container')
+  // .option("-l, --eslint", "eslint required or not ?")
+  .action(function(containerName) {
+    if (containerName === undefined) {
+      console.log('provide a project name');
+      return;
+    }
+    else
+		{
+			container = new containerApp();
+			const spinner = ora(`generating container ${containerName}`).start();
+      container.createContainer(containerName,function(status){
+        
+      })
+		}
+  }).on('--help', function() {
+    console.log('  Examples:');
+    console.log();
+    console.log('    $ react-cli init awesomereact');
+    console.log('    $ react-cli init -l awesomereact');
+    console.log();
+  });
 /**
  * parse commander object
  */
 
 program.parse(process.argv);
+
