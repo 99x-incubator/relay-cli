@@ -51,12 +51,30 @@ program
  * parse commander object
  */
 
+/**
+ * command generating route file
+ */
+program
+  .command('generate [type] [name]')
+  .alias('r')
+  .description('generate a route file')
+  .action(function (routeName) {
+    if (routeName === undefined) {
+      console.log('Provide a route name');
+      return;
+    }
+    else {
+      const route = new routeApp();
+      console.log("command" + routeName);
+      route.createRouteFile(routeName);
+    }
+  });
 
 /**
  * command generating route file
  */
 program
-  .command('route [routeName]')
+  .command('generate [type] [module] [name]')
   .alias('r')
   .description('generate a route file')
   .action(function (routeName) {
