@@ -7,9 +7,6 @@
     "relay": "bin/init"
   },
   "scripts": {
-    "compile": "babel bin -d build",
-    "clean": "rm -rf build",
-    "prepublish": "npm run clean && npm run compile",
     "test": "mocha"
   },
   "repository": {
