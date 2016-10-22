@@ -229,7 +229,7 @@ program
 	.action(function (options) {
 		if (options.route) {
 			blessed = new blessedApp()
-			blessed.blessing();
+			blessed.viewDirectoryStructure();
 		}
 	});
 
