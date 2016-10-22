@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-class name extends React.Component {
+class <name> extends React.Component {
   render() {
     return (
       <div>
