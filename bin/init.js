@@ -19,8 +19,7 @@ program
 program
   .command('init [projectname]')
   .alias('i')
-  .description('initialize React project')
-  .option("-l, --eslint", "eslint required or not ?")
+  .description('initialize Relay.js project')
   .action(function(projectname, options) {
     if (projectname === undefined) {
       console.log('provide a project name');
@@ -49,31 +48,71 @@ program
     console.log();
   });
 
+
+
   program
-  .command('generate container [containerName]')
+  .command('generate [type] [module] [name]')
   .alias('g')
-  .description('create relay container')
-  // .option("-l, --eslint", "eslint required or not ?")
-  .action(function(containerName) {
-    if (containerName === undefined) {
-      console.log('provide a project name');
+  .description('generate relay container')
+  .action(function(type,module,name) {
+    type+='s';
+    if (module === undefined) {
+      console.log('provide a container name');
       return;
     }
     else
 		{
-			container = new containerApp();
-			const spinner = ora(`generating container ${containerName}`).start();
-      container.createContainer(containerName,function(status){
-        
-      })
+      container = new containerApp()
+      const spinner = ora(`creating ${type} ${name}`).start();
+      container.createContainer(type,module,function(result){
+        if(result) {
+          spinner.text = `Container ${module} created`
+          spinner.succeed();
+
+        } else {
+          spinner.text = `Container ${module} already exists`
+          spinner.fail();
+        }
+      },name)
 		}
   }).on('--help', function() {
     console.log('  Examples:');
     console.log();
-    console.log('    $ react-cli init awesomereact');
+    console.log('    $ relay init awesomereact');
     console.log('    $ react-cli init -l awesomereact');
     console.log();
-  });
+  }); 
+
+   program
+  .command('view')
+  .alias('v')
+  .option('-cn','--containers')
+  .description('view relay containers')
+  .action(function() {
+    type+='s';
+    if (module === undefined) {
+      console.log('provide a container name');
+      return;
+    }
+    else
+		{
+      container = new containerApp()
+      const spinner = ora(`Creating Container ${name}`).start();
+      container.createContainer(type,module,function(result){
+        if(result) {
+          spinner.text = `Container ${module} created successfully`
+          spinner.succeed();
+
+        }  
+      },name)
+		}
+  }).on('--help', function() {
+    console.log('  Examples:');
+    console.log();
+    console.log('    $ relay init awesomereact');
+    console.log('    $ react-cli init -l awesomereact');
+    console.log();
+  }); 
 /**
  * parse commander object
  */
