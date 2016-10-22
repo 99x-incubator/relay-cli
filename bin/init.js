@@ -4,6 +4,8 @@ const program = require('commander');
 const inquirer = require('inquirer');
 const initApp = require('../lib/initialize');
 const routeApp = require('../lib/routes');
+const generateApp = require('../lib/generate');
+const checkDuplicates = require('../lib/utils/checkduplicates');
 const packageVersion = require('../package.json').version;
 const ora = require('ora');
 const containerApp = require('../lib/container');
@@ -60,6 +62,133 @@ program
       console.log('provide a container name');
       return;
     }
+    if(type === 'components') {
+    		let choices = [];
+
+    		let numberOfPropTypes = 0;
+
+    		let inputPropTypeName = {
+			    type: 'input',
+			    name: 'propName',
+			    message: 'Prop name',
+			    paginated: true,
+			    validate: function(input) {
+			    	let regex = /[^a-z\d]/i;
+			    	return false;
+			    	return (regex.test(input));
+			    },
+			    when: function(answer) {
+			    	return answer.propTypes === 'yes'
+			    }
+			  };
+
+    		choices.push({
+				  name: 'child',
+				  value: 'child',
+				  short: 'child'
+				});
+
+				choices.push({
+				  name: 'parent',
+				  value: 'parent',
+				  short: 'parent'
+				});
+				
+				inquirer.prompt([
+				  {
+				    type: 'list',
+				    name: 'componentType',
+				    message: 'Select component type',
+				    paginated: true,
+				    choices: choices
+				  },
+				  {
+				    type: 'list',
+				    name: 'propTypes',
+				    message: 'Add propTypes',
+				    paginated: true,
+				    choices: ['yes', 'no']
+				  },
+				  {
+				    type: 'input',
+				    name: 'propNo',
+				    message: 'Number of prop types',
+				    paginated: true,
+				    validate: function(input) {
+				    	let regex = /^\d+$/;
+				    	//return false;
+				    	if(!regex.test(input)) {
+				    		return 'enter a number';
+				    	}
+				    	return true;
+				    },
+				    when: function(answer) {
+				    	return answer.propTypes === 'yes'
+				    }
+				  },
+				  {
+				    type: 'input',
+				    name: 'propNames',
+				    message: 'Prop names',
+				    paginated: true,
+				    when: function(answer) {
+				    	numberOfPropTypes = answer.propNo;
+				    	return answer.propTypes === 'yes'
+				    },
+				    validate: function(input) {
+				    	let propNames = input.split(' ');
+				    	if(propNames.length !== Number(numberOfPropTypes)) {
+				    		return `enter ${numberOfPropTypes} prop names`;
+				    	}
+				    	let regex = /^[a-zA-Z]+$/;
+				    	
+				    	if(!checkDuplicates(propNames)) {
+				    		return 'duplicate prop names';
+				    	}
+				    	// if(!regex.test(input)) {
+				    	// 	return 'enter valid name [alpha]'
+				    	// }
+				    	return true;
+				    }
+				  }
+				]).then(function (answers) {
+					generate = new generateApp();
+					if(answers.propTypes === 'no') {
+						generate.createComponent(module, name, answers, null, function(status) {
+							if(status) {
+								const spinner = ora('loading directory structure \n').start();
+								spinner.text = 'component created successfully';
+								spinner.succeed();
+							}
+						});
+					}
+					else {
+						let opts = [];
+						let propNames = answers.propNames.split(' ');
+
+						for(let count=0; count<numberOfPropTypes; count++) {
+							let propTypeChoice = {
+								type: 'list',
+								name: `${propNames[count]}`,
+								message: `Select prop type for ${propNames[count]}`,
+								paginated: true,
+								choices: ['number', 'string', 'bool', 'object', 'array', 'func', 'symbol'],
+							};
+							opts.push(propTypeChoice);
+						}
+						inquirer.prompt(opts)
+							.then(function(answersInner) {
+								generate.createComponent(module, name, answers, answersInner, function(status) {
+									if(status) {
+										const spinner = ora('loading directory structure \n').start();
+										spinner.text = 'component created successfully';
+										spinner.succeed();
+									}
+								});
+							});
+					}
+				});
+		}
     else if(type === 'containers') {
       container = new containerApp()
       container.createContainer(type,module,function(result){
