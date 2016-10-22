@@ -56,17 +56,51 @@ program
   .description('generate relay container')
   .action(function(type,module,name) {
     type+='s';
-    if (type === undefined) {
+    if (module === undefined) {
       console.log('provide a container name');
       return;
     }
     else
 		{
       container = new containerApp()
+      const spinner = ora(`creating ${type} ${name}`).start();
       container.createContainer(type,module,function(result){
         if(result) {
-          const spinner = ora(`creating ${type} ${name}`).start();
-          spinner.text = `${type} ${module} created`
+          spinner.text = `Container ${module} created`
+          spinner.succeed();
+
+        } else {
+          spinner.text = `Container ${module} already exists`
+          spinner.fail();
+        }
+      },name)
+		}
+  }).on('--help', function() {
+    console.log('  Examples:');
+    console.log();
+    console.log('    $ relay init awesomereact');
+    console.log('    $ react-cli init -l awesomereact');
+    console.log();
+  }); 
+
+   program
+  .command('view')
+  .alias('v')
+  .option('-cn','--containers')
+  .description('view relay containers')
+  .action(function() {
+    type+='s';
+    if (module === undefined) {
+      console.log('provide a container name');
+      return;
+    }
+    else
+		{
+      container = new containerApp()
+      const spinner = ora(`Creating Container ${name}`).start();
+      container.createContainer(type,module,function(result){
+        if(result) {
+          spinner.text = `Container ${module} created successfully`
           spinner.succeed();
 
         }  
