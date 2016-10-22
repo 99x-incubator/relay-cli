@@ -55,6 +55,7 @@ program
   .alias('g')
   .description('generate relay container')
   .action(function(type,module,name) {
+    type+='s';
     if (type === undefined) {
       console.log('provide a container name');
       return;
