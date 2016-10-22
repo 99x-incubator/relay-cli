@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Relay-CLI | CLI for Relay</title>
+	<meta name="viewport" content="width=device-width">
+	<meta property="og:title" content="Relay | A JavaScript framework for building data-driven React applications">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://99xt.github.io/relay-cli/index.html">
+	<meta property="og:description" content="A JavaScript framework for building data-driven React applications">
+	<link rel="shortcut icon" href="/relay-cli/img/favicon.png">
+	<link rel="stylesheet" href="/relay-cli/css/relay.css"><script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script></head>
+
+<body>
+	<div class="container">
+		<div class="nav-main">
+			<div class="wrap">
+				<a class="nav-home" href="/relay-cli/"><img class="nav-logo" src="/relay-cli/img/logo.svg" width="50" height="50">Relay</a>
+				<ul class="nav-site">
+					<li><a href="/relay-cli/docs/getting-started.html#content" class="">Docs</a></li>
+					<li><a href="https://github.com/99xt/relay-cli" class="">GitHub</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="hero">
+			<div class="wrap">
+				<h1 class="text"><strong>Relay</strong></h1>
+				<h2 class="minitext">A JavaScript framework for building data-driven React applications</h2>
+			</div>
+		</div>
+		<section class="content wrap">
+			<section class="marketing-row">
+				<div class="marketing-col">
+					<h3>Declarative</h3>
+					<p>Never again communicate with your data store using an imperative API. Simply declare your data requirements using GraphQL
+						and let Relay figure out how and when to fetch your data.</p>
+				</div>
+				<div class="marketing-col">
+					<h3>Colocation</h3>
+					<p>Queries live next to the views that rely on them, so you can easily reason about your app. Relay aggregates queries
+						into efficient network requests to fetch only what you need.</p>
+				</div>
+				<div class="marketing-col">
+					<h3>Mutations</h3>
+					<p>Relay lets you mutate data on the client and server using GraphQL mutations, and offers automatic data consistency,
+						optimistic updates, and error handling.</p>
+				</div>
+			</section>
+			<hr class="home-divider">
+			<section class="buttons-unit"><a class="button" href="docs/getting-started.html">Get Started</a><a class="button" href="https://github.com/facebook/relay/releases/tag/v0.9.3">Download</a></section>
+			<hr class="home-divider">
+			<section class="home-section">
+				<section id="examples">
+					<div class="example">
+						<h3>A simple list</h3>
+						<p>Relay lets each view declare its own data requirements in the form of a <strong>GraphQL query fragment</strong>. Here,
+							each tea in this list of teas declares that it needs a <code>name</code> and a <code>steepingTime</code> to be able
+							to render. Just like we compose React components to build an app, we <strong>compose query fragments</strong> together
+							to build a single query at the root of the app.</p>
+					</div>
+					<div class="example">
+						<h3>A simple parameterization</h3>
+						<p>Relay query fragments can be parameterized using <strong>variables</strong> in GraphQL <strong>calls</strong>. This
+							enables mechanics like pagination, filtering, sorting, and more.</p>
+					</div>
+				</section>
+			</section>
+			<hr class="home-divider">
+			<section class="buttons-unit"><a class="button" href="docs/getting-started.html">Get Started</a><a class="button" href="https://github.com/facebook/relay/releases/tag/v0.9.3">Download</a></section>
+		</section>
+		<footer class="wrap">
+			<div class="right">©2016 Facebook Inc.</div>
+		</footer>
+	</div>
+	<div id="fb-root"></div><script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+              ga('create', 'UA-71174216-1', 'auto');
+              ga('send', 'pageview');
+          </script></body>
+
+</html>
