@@ -29,7 +29,9 @@
   "homepage": "https://github.com/99xt/relay-cli#readme",
   "devDependencies": {
     "babel-cli": "^6.16.0",
-    "babel-preset-es2015": "^6.16.0"
+    "babel-preset-es2015": "^6.16.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
   },
   "dependencies": {
     "ascii-table": "0.0.9",
