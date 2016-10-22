@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const blessedApp = require('../lib/blessed');
 const inquirer = require('inquirer');
 const initApp = require('../lib/initialize');
 const routeApp = require('../lib/routes');
@@ -48,74 +49,62 @@ program
     console.log();
   });
 
-
-
-  program
+/**
+* Generate commands
+*/
+program
   .command('generate [type] [module] [name]')
   .alias('g')
   .description('generate relay container')
-  .action(function(type,module,name) {
-    type +='s';
+  .action(function (type, module, name) {
+    type += 's';
     if (type === undefined) {
       console.log('provide a container name');
       return;
     }
-    else if(type === 'containers') {
+    else if (type === 'containers') {
       container = new containerApp()
-      container.createContainer(type,module,function(result){
-        if(result) {
+      container.createContainer(type, module, function (result) {
+        if (result) {
           const spinner = ora(`creating ${type} ${name}`).start();
           spinner.text = `${type} ${module} created`
           spinner.succeed();
 
-        }  
-      },name)
-		} 
-		else if(type === 'routes') {
-			console.log('routes ...');
-			const route = new routeApp();
+        }
+      }, name)
+    }
+    else if (type === 'routes') {
+      console.log('routes ...');
+      const route = new routeApp();
       route.createRouteFile(type, module, function (status) {
         if (status) {
           console.log("Success");
         }
       }, name);
-		}
-  }).on('--help', function() {
+    }
+  }).on('--help', function () {
     console.log('  Examples:');
     console.log();
     console.log('    $ relay init awesomereact');
     console.log('    $ react-cli init -l awesomereact');
     console.log();
-  }); 
-
-
+  });
 
 /**
- * parse commander object
- */
+* View commands
+*/
+program
+  .command('view')
+  .alias('v')
+  .option('-r, --route', 'view routes only')
+  .action(function (options) {
+    if (options.route) {
+      blessed = new blessedApp()
+      blessed.blessing();
+    }
+  });
 
 /**
- * command generating route file
- */
-
-// program
-//   .command('generate [type] [module] [name]')
-//   .alias('r')
-//   .description('generate a route file')
-//   .action(function (type, module, name) {
-//     if (type === undefined && module === undefined && name === undefined) {
-//       console.log('Provide a route name');
-//       return;
-//     }
-//     else {
-//       const route = new routeApp();
-//       route.createRouteFile(type, module, function (status) {
-//         if (status) {
-//           console.log("Success");
-//         }
-//       }, name);
-//     }
-//   });
-
+* parse commander object
+*/
 program.parse(process.argv);
-
