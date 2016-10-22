@@ -5,6 +5,7 @@ const inquirer = require('inquirer');
 const initApp = require('../lib/initialize');
 const packageVersion = require('../package.json').version;
 const ora = require('ora');
+const containerApp = require('../lib/container');
 
 /**
  * set commander version
@@ -47,8 +48,41 @@ program
     console.log();
   });
 
+
+
+  program
+  .command('generate [type] [module] [name]')
+  .alias('g')
+  .description('generate relay container')
+  .action(function(type,module,name) {
+    type+='s';
+    if (type === undefined) {
+      console.log('provide a container name');
+      return;
+    }
+    else
+		{
+      container = new containerApp()
+      container.createContainer(type,module,function(result){
+        if(result) {
+          const spinner = ora(`creating ${type} ${name}`).start();
+          spinner.text = `${type} ${module} created`
+          spinner.succeed();
+
+        }  
+      },name)
+		}
+  }).on('--help', function() {
+    console.log('  Examples:');
+    console.log();
+    console.log('    $ relay init awesomereact');
+    console.log('    $ react-cli init -l awesomereact');
+    console.log();
+  }); 
+
 /**
  * parse commander object
  */
 
 program.parse(process.argv);
+
