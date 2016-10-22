@@ -8,5 +8,5 @@ export default class extends Relay.Route {
       }
     `,
   };
-  static <name> = 'AppHomeRoute';
+  static routeName = 'AppHomeRoute';
 }

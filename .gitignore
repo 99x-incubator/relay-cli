@@ -34,9 +34,13 @@ jspm_packages
 
 # Optional npm cache directory
 .npm
+yarn.lock
 
 # Optional REPL history
 .node_repl_history
 
 # babel build
 build
+
+# vscode
+.vscode
