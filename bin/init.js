@@ -55,13 +55,12 @@ program
   .alias('g')
   .description('generate relay container')
   .action(function(type,module,name) {
-    type+='s';
+    type +='s';
     if (type === undefined) {
       console.log('provide a container name');
       return;
     }
-    else
-		{
+    else if(type === 'containers') {
       container = new containerApp()
       container.createContainer(type,module,function(result){
         if(result) {
@@ -71,6 +70,15 @@ program
 
         }  
       },name)
+		} 
+		else if(type === 'routes') {
+			console.log('routes ...');
+			const route = new routeApp();
+      route.createRouteFile(type, module, function (status) {
+        if (status) {
+          console.log("Success");
+        }
+      }, name);
 		}
   }).on('--help', function() {
     console.log('  Examples:');
@@ -90,24 +98,24 @@ program
  * command generating route file
  */
 
-program
-  .command('generate [type] [module] [name]')
-  .alias('r')
-  .description('generate a route file')
-  .action(function (type, module, name) {
-    if (type === undefined && module === undefined && name === undefined) {
-      console.log('Provide a route name');
-      return;
-    }
-    else {
-      const route = new routeApp();
-      route.createRouteFile(type, module, function (status) {
-        if (status) {
-          console.log("Success");
-        }
-      }, name);
-    }
-  });
+// program
+//   .command('generate [type] [module] [name]')
+//   .alias('r')
+//   .description('generate a route file')
+//   .action(function (type, module, name) {
+//     if (type === undefined && module === undefined && name === undefined) {
+//       console.log('Provide a route name');
+//       return;
+//     }
+//     else {
+//       const route = new routeApp();
+//       route.createRouteFile(type, module, function (status) {
+//         if (status) {
+//           console.log("Success");
+//         }
+//       }, name);
+//     }
+//   });
 
 program.parse(process.argv);
 
