@@ -54,38 +54,23 @@ program
 /**
  * command generating route file
  */
-program
-  .command('generate [type] [name]')
-  .alias('r')
-  .description('generate a route file')
-  .action(function (routeName) {
-    if (routeName === undefined) {
-      console.log('Provide a route name');
-      return;
-    }
-    else {
-      const route = new routeApp();
-      console.log("command" + routeName);
-      route.createRouteFile(routeName);
-    }
-  });
 
-/**
- * command generating route file
- */
 program
   .command('generate [type] [module] [name]')
   .alias('r')
   .description('generate a route file')
-  .action(function (routeName) {
-    if (routeName === undefined) {
+  .action(function (type, module, name) {
+    if (type === undefined && module === undefined && name === undefined) {
       console.log('Provide a route name');
       return;
     }
     else {
       const route = new routeApp();
-      console.log("command" + routeName);
-      route.createRouteFile(routeName);
+      route.createRouteFile(type, module, function (status) {
+        if (status) {
+          console.log("Success");
+        }
+      }, name);
     }
   });
 
