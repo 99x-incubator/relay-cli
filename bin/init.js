@@ -9,7 +9,7 @@ const checkDuplicates = require('../lib/utils/checkduplicates');
 const packageVersion = require('../package.json').version;
 const ora = require('ora');
 const containerApp = require('../lib/container');
-const blessedApp = require('../lib/blessed');
+
 
 /**
  * set commander version
@@ -238,6 +238,7 @@ program
   .option('-d,--container','view containers only')
   .option('-c,--component','view components only')
 	.action(function (options) {
+		const blessedApp = require('../lib/blessed');
     blessed = new blessedApp()
 		if (options.component) {
 			blessed.viewDirectoryStructure('components');
